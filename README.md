@@ -1,4 +1,4 @@
-# AppPython_IPI Dimitri - Vladimir - Felix - Florent
+# AppPython_IPI Dmitrii - Vladimir - Felix - Florent
 
 TODO:
 - Chacun regarde flask
