@@ -1,0 +1,12 @@
+.sub-menu{
+    height: 100%;
+    background-color: #F5B14C;
+    width: 14rem;
+    margin: -9px 9.5rem;
+    display: flex;
+    flex-direction: column;
+    position: fixed;
+    border-left: solid 1px;
+    display: flex;
+    flex: 1;
+}
