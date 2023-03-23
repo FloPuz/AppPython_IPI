@@ -10,32 +10,34 @@
 </head>
 <body>
 <div class="side-menu">
-    <img class="cheese-img" alt="Cheese" src="{{url_for('static', filename='assets/images/cheese.png')}}"/>
+    <img class="cheese-img" alt="Cheese" src="{{ url_for('static', filename='assets/images/cheese.png') }}"/>
     <div class="column flex">
         <a class="button_link" href="{{ url_for('rank') }}">
             <div class="circle">
-                <img  class="circle-img" alt="Rank" src="{{url_for('static', filename='assets/images/rank.png')}}"/>
+                <img class="circle-img" alt="Rank" src="{{ url_for('static', filename='assets/images/rank.png') }}"/>
             </div>
             <label>Classement</label>
         </a>
 
         <a class="button_link">
             <div class="circle">
-                <img  class="circle-img" alt="Rank" src="{{url_for('static', filename='assets/images/about_us.png')}}"/>
+                <img class="circle-img" alt="Rank"
+                     src="{{ url_for('static', filename='assets/images/about_us.png') }}"/>
             </div>
             <label>À propos de nous</label>
         </a>
 
         <a class="button_link disconnect-button">
             <div class="circle">
-                <img  class="circle-img" alt="Rank" src="{{url_for('static', filename='assets/images/deconnect.png')}}"/>
+                <img class="circle-img" alt="Rank"
+                     src="{{ url_for('static', filename='assets/images/deconnect.png') }}"/>
             </div>
-            <label>Classement</label>
+            <label>Déconnexion</label>
         </a>
     </div>
 </div>
 
-<div >
+<div>
     {% block container %}{% endblock %}
 </div>
 </body>
