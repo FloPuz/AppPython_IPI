@@ -1,43 +1,7 @@
 import sqlite3
 
 import click
-from flask import Flask
 from flask import current_app, g
-from flask import render_template, url_for
-
-app = Flask(__name__)
-
-
-@app.route('/')
-@app.route('/home')
-def home():
-    return render_template('home.html')
-
-
-@app.route('/rank')
-def rank():
-    return render_template('rank.html')
-
-
-@app.route('/login')
-def connection():
-    return render_template('login.html')
-
-
-@app.route('/logout')
-def logout():
-    return url_for("home")
-
-
-@app.errorhandler(401)
-def access_denied(error):
-    return render_template('access_denied.html'), 401
-
-
-@app.errorhandler(404)
-def access_denied(error):
-    return render_template('page_not_found.html'), 404
-
 
 # db logic code
 def get_db():
