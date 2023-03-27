@@ -21,7 +21,7 @@ def connection():
 
 @app.route('/logout')
 def logout():
-    return render_template('login.html')
+    return url_for("home")
 
 @app.errorhandler(401)
 def access_denied(error):
