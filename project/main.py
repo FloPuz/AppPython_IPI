@@ -1,11 +1,37 @@
+import sqlite3
+
 from flask import Flask
 from flask import render_template, make_response, abort, redirect, url_for
-from flask import session, request
+from flask import session, request, current_app, g
 from markupsafe import escape
 from werkzeug.utils import secure_filename
-from project import *
+from werkzeug.security import generate_password_hash
 
 app = Flask(__name__)
+
+# db logic code
+def get_db():
+    if "db" not in g:
+        g.db = sqlite3.connect("data.db")
+        g.db.row_factory = sqlite3.Row
+
+    return g.db
+
+
+def close_db(e=None):
+    db = g.pop("db", None)
+
+    if db is not None:
+        db.close()
+
+def init_db():
+    with app.app_context():
+        db = get_db()
+    with app.app_context():
+        with current_app.open_resource("cheesse.sql") as f:
+            print("ok")
+            db.executescript(f.read().decode("utf8"))
+            
 
 @app.route("/")
 @app.route("/home")
@@ -76,13 +102,13 @@ def insert_user(login, password, prenom):
         return error
 
 #Supprime un user de la db
-def delete_user(user)
+def delete_user(user):
     db= get_db()
     try:
-        db.execute("DELETE FROM user WHERE idUser = ?"(user['idUser'],))
+        db.execute("DELETE FROM user WHERE idUser = ?", (user['idUser'] ))
         db.commit()
     except db.IntegrityError:
-        error = f"User {username} doesn't exist."
+        error = f"User {user['login']} doesn't exist."
         return error
 
 
