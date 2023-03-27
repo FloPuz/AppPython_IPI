@@ -25,6 +25,7 @@ def connection():
 
 @app.route('/logout')
 def logout():
+    #TODO -- remove connection from instance
     return url_for("home")
 
 @app.route('/signup', methods=['GET', 'POST'])
