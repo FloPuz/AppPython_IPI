@@ -1,0 +1,50 @@
+
+.side-menu {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    background-color: #F5B14C;
+    position: fixed;
+    box-shadow: 2px -5px 20px 1px #0000004d;
+    top: 0;
+    left: 0;
+    width: 10rem;
+}
+
+.cheese-img{
+    padding: 25px;
+}
+
+.button_link {
+    display: flex;
+    margin: 0px auto 1.3rem;
+    flex-direction: column;
+    color: #fff;
+    text-decoration: unset;
+    align-items: center;
+}
+
+.circle {
+    border: solid 3px white;
+    border-radius: 50%;
+    padding: 1.5rem;
+    display: flex;
+    height: 2rem;
+    width: 2rem;
+    margin: 0 auto 0.5rem;
+}
+
+.circle-img {
+    width: 40px;
+    height: 40px;
+    margin: -7px 0 0 -3px;
+}
+
+.disconnect-button{
+    bottom: 0px;
+    position: absolute;
+    left: 25%;
+    margin: auto;
+}
+
+

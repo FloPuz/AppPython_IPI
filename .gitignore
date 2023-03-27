@@ -1,1 +1,9 @@
+# IDEs and editors
+/.idea
 
+# virtual environment
+/venv
+
+__pycache__/
+poetry.lock
+pyproject.toml
