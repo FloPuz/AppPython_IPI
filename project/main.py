@@ -3,6 +3,7 @@ from flask import render_template, make_response, abort, redirect, url_for
 from flask import session, request
 from markupsafe import escape
 from werkzeug.utils import secure_filename
+from project import *
 
 app = Flask(__name__)
 
@@ -48,3 +49,53 @@ def sign_up():
 # @app.errorhandler(404)
 # def access_denied(error):
 #     return render_template('page_not_found.html'), 404
+
+#récupère tous les users sous la forme de tableau 2D (ie: user[0]['login'] / user[1]['login'])
+def get_all_users():
+    db = get_db()
+    users = db.execute('SELECT * FROM user').fetchall()
+    return users
+#récupère un utilsiateur donnée sous forme de user (ie: user['login']/ user['password'])
+def get_user_by_username(login):
+    db= get_db()
+    user = db.execute('SELECT * FROM user WHERE login = ?',(login,)).fetchone()
+    if user is not None:
+        return user
+
+#insère un utilisateur avec user['login']/user['paswword']/user['prenom']
+def insert_user(login, password, prenom):
+    db= get_db()
+    try:
+        db.execute(
+            "INSERT INTO user (login, password, prenom) VALUES (?, ?, ?)",
+            (login, generate_password_hash(password), prenom),
+        )
+        db.commit()
+    except db.IntegrityError:
+        error = f"User {login} is already registered."
+        return error
+
+#Supprime un user de la db
+def delete_user(user)
+    db= get_db()
+    try:
+        db.execute("DELETE FROM user WHERE idUser = ?"(user['idUser'],))
+        db.commit()
+    except db.IntegrityError:
+        error = f"User {username} doesn't exist."
+        return error
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
