@@ -4,13 +4,6 @@
 <div class="column is-4 is-offset-4">
     <h3 class="title">Login</h3>
     <div class="box">
-        {% with messages = get_flashed_messages() %}
-        {% if messages %}
-        <div class="notification is-danger">
-            {{ messages[0] }}
-        </div>
-        {% endif %}
-        {% endwith %}
         <form method="POST" action="/login">
             <div class="field">
                 <div class="control">
@@ -31,7 +24,7 @@
             </div>
             <button class="button is-block is-info is-large is-fullwidth">Login</button>
         </form>
-        <a href="{{ url_for('auth.signup') }}" class="button is-block is-info is-large is-fullwidth margin-top">Sign up</a>
+        <a href="{{ url_for('sign_up') }}" class="button is-block is-info is-large is-fullwidth margin-top">Sign up</a>
     </div>
 </div>
 {% endblock %}
