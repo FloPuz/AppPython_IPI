@@ -23,11 +23,16 @@ def connection():
 def logout():
     return url_for("home")
 
-@app.errorhandler(401)
-def access_denied(error):
-    return render_template('access_denied.html'), 401
+@app.route('/signup')
+def sign_up():
+    return render_template("signup")
 
-@app.errorhandler(404)
-def access_denied(error):
-    return render_template('page_not_found.html'), 404
+
+# @app.errorhandler(401)
+# def access_denied(error):
+#     return render_template('access_denied.html'), 401
+
+# @app.errorhandler(404)
+# def access_denied(error):
+#     return render_template('page_not_found.html'), 404
 
