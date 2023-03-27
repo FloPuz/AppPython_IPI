@@ -6,7 +6,6 @@ from flask import session, request, current_app, g
 from markupsafe import escape
 from werkzeug.utils import secure_filename
 from werkzeug.security import generate_password_hash
-from project import *
 
 app = Flask(__name__)
 
@@ -25,7 +24,6 @@ def close_db(e=None):
     if db is not None:
         db.close()
 
-
 def init_db():
     with app.app_context():
         db = get_db()
@@ -33,6 +31,7 @@ def init_db():
         with current_app.open_resource("cheesse.sql") as f:
             print("ok")
             db.executescript(f.read().decode("utf8"))
+            
 
 @app.route("/")
 @app.route("/home")
@@ -106,7 +105,7 @@ def insert_user(login, password, prenom):
 def delete_user(user):
     db= get_db()
     try:
-        db.execute("DELETE FROM user WHERE idUser = ?"(user['idUser'],))
+        db.execute("DELETE FROM user WHERE idUser = ?", (user['idUser'] ))
         db.commit()
     except db.IntegrityError:
         error = f"User {user['login']} doesn't exist."
