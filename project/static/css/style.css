@@ -1,0 +1,19 @@
+@import "sub-menu.css";
+
+.column {
+    display: flex;
+    flex-direction: column;
+}
+
+.flex {
+    flex: 1
+}
+
+.hero.is-primary {
+    background-color: #F5B14C;
+    color: #fff;
+}
+
+.margin-top{
+    margin-top: 1rem;
+}
