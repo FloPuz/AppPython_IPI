@@ -7,3 +7,5 @@
 __pycache__/
 poetry.lock
 pyproject.toml
+identifier.sqlite
+*.db
