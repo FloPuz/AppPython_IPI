@@ -1,15 +1,6 @@
 # AppPython_IPI Dmitrii - Vladimir - Felix - Florent
+Cheese rank 
+The purpose is to rank any cheese you like, you'll need to register to put your favorite cheese on
 
-TODO:
-- Chacun regarde flask
-- Ajouter les règles au gitignore
-- Model de base de données 
-    -User(login, password, prenom, pseudo, FK_Roles) 
-    -A VOIR
-    -A VOIR
--Environnement virtuel
--Reflexion autour des Vues/Templates
-
-
-
+Discord ProjetFromage:
 https://discord.gg/cuSKvTpg
