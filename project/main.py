@@ -143,18 +143,18 @@ def sign_up():
 # def access_denied(error):
 #     return render_template('page_not_found.html'), 404
 
-#récupère tous les users sous la forme de tableau 2D (ie: user[0]['login'] / user[1]['login'])
+#select all user as a 2D list (ie: user[0]['login'] / user[1]['login'])
 def get_all_users():
     db = get_db()
     users = db.execute('SELECT * FROM user').fetchall()
     return users
-#récupère un utilsiateur donnée sous forme de user (ie: user['login']/ user['password'])
+#select all database user as user(ie: user['login']/ user['password'])
 def get_user_by_username(login):
     db= get_db()
     user = db.execute('SELECT * FROM user WHERE login = ?',(login,)).fetchone()
     return user
 
-#insère un utilisateur avec user['login']/user['paswword']/user['prenom']
+#insert user with user['login']/user['paswword']/user['prenom']
 def insert_user(login, password, prenom):
     db= get_db()
     try:
@@ -167,7 +167,7 @@ def insert_user(login, password, prenom):
         error = f"User {login} is already registered."
         return error
 
-#Supprime un user de la db
+#Delete user from DataBase
 def delete_user(user):
     db= get_db()
     try:
@@ -201,8 +201,8 @@ def get_user_cheese(user):
 
 #Select the most loved cheese
 def get_loved_cheese():
-    db= get_db()
-    cheeses = db.execute('SELECT * FROM cheese JOIN user ON idCheese = user.idCheese ORDER BY count(idUser)').fetchone()
+    db = get_db()
+    cheeses = db.execute('SELECT nom, count(user.idUser) as vote FROM cheese INNER JOIN user ON cheese.idCheese = user.idCheese GROUP BY user.idCheese').fetchone()
     return cheeses
 
 init_db()
