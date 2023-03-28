@@ -168,3 +168,23 @@ def delete_user(user):
     except db.IntegrityError:
         error = f"User {user['login']} doesn't exist."
         return error
+
+#Changes the cheese totem from a user even if its outragious 
+def change_user_cheese(user):
+    db = get_db()
+    try:
+        db.execute("UPDATE FROM user WHERE idUser =? SET idCheese = ?", (user['idUser']), (user['idCheese']))
+        db.commit()
+    except db.IntegrityError:
+        error = f"User {user['login']} doesn't exist."
+        return error
+
+#Get the user 's favorite, hopefully smelly, cheese 
+def get_user_cheese(user):
+    db = get_db()
+    try:
+        cheese = db.execute("SELECT cheese.nom FROM cheese LEFT JOIN user ON user.idUser =?", (user['idUser']))
+        return cheese_country[cheese]
+    except db.IntegrityError:
+        error = f"User {user['login']} doesn't exist."
+        return error
