@@ -1,14 +1,12 @@
 import sqlite3
 
-from flask import Flask
-from flask import render_template, make_response, abort, redirect, url_for
-from flask import session, request, current_app, g
-from markupsafe import escape
-from werkzeug.utils import secure_filename
-from werkzeug.security import generate_password_hash
-
+from flask import Flask, flash
+from flask import render_template, redirect, url_for
+from flask import request, current_app, g
+from werkzeug.security import generate_password_hash, check_password_hash
 
 app = Flask(__name__)
+app.secret_key = "secret key"
 
 cheese_country = {
     'Parmigiano Regiano':{
@@ -73,14 +71,15 @@ def init_db():
         db = get_db()
     with app.app_context():
         with current_app.open_resource("cheesse.sql") as f:
-            print("ok")
-            db.executescript(f.read().decode("utf8"))           
+            db.executescript(f.read().decode("utf8"))
 
 @app.route("/")
+def login_page():
+    return render_template("login.html")
+
 @app.route("/home")
 def home():
     return render_template("home.html")
-
 
 @app.route("/rank")
 def rank():
@@ -92,6 +91,13 @@ def connection():
     if request.method == "GET":
         return render_template("login.html")
     else:
+        login = request.form.get('login')
+        password = request.form.get('password')
+        user = get_user_by_username(login)
+        if not user or not check_password_hash(user['password'], password):
+            flash('Please check your login details and try again.')
+            return redirect(url_for("connection"))
+
         # TODO -- Check in db and add logic
         return redirect(url_for("home"))
 
@@ -107,9 +113,17 @@ def sign_up():
     if request.method == "GET":
         return render_template("signup.html")
     else:
-        print("Handle Logic Please")
-        # TODO -- Logic for sign Up
+        login = request.form.get('login')
+        name = request.form.get('name')
+        password = request.form.get('password')
+        user = get_user_by_username(login)
 
+        if user:
+            flash('Email address already exists')
+            return redirect(url_for('connection'))
+
+        insert_user(login , password , name)
+        return redirect(url_for('connection'))
 
 # @app.errorhandler(401)
 # def access_denied(error):
@@ -128,8 +142,7 @@ def get_all_users():
 def get_user_by_username(login):
     db= get_db()
     user = db.execute('SELECT * FROM user WHERE login = ?',(login,)).fetchone()
-    if user is not None:
-        return user
+    return user
 
 #insère un utilisateur avec user['login']/user['paswword']/user['prenom']
 def insert_user(login, password, prenom):
