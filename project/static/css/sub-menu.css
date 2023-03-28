@@ -1,7 +1,7 @@
 .sub-menu{
     height: 100%;
-    background-color: #F5B14C;
-    width: 14rem;
+    background-color: rgb(254,246,170);
+    width: 100%;
     margin: -9px 9.5rem;
     display: flex;
     flex-direction: column;
@@ -9,4 +9,21 @@
     border-left: solid 1px;
     display: flex;
     flex: 1;
+    align-items: center;
+    justify-content: center;
+}
+
+.list-item{
+    width: 300px;
+    display: flex;
+    flex-direction: row;
+}
+
+.div-hover:hover{
+    background-color: #F5B14C;
+}
+
+.img-cheese{
+    width: 48px;
+    height: 48px;
 }

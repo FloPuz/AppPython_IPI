@@ -1,13 +1,56 @@
 import sqlite3
 
-from flask import Flask
 from flask import render_template, make_response, abort, redirect, url_for
 from flask import session, request, current_app, g
 from markupsafe import escape
 from werkzeug.utils import secure_filename
 from werkzeug.security import generate_password_hash
 
+
 app = Flask(__name__)
+
+cheese_country = {
+    'Parmigiano Regiano':{
+        'flag': 'assets/images/flags/italy.png',
+        'photo':'assets/images/cheeses/parmigiano.png',
+    },
+    'Burrata':{
+        'flag': 'assets/images/flags/italy.png',
+        'photo':'assets/images/cheeses/burratta.png',
+    },
+    'Grana Padano':{
+        'flag': 'assets/images/flags/italy.png',
+        'photo':'assets/images/cheeses/padano.png'
+    },
+    'Oaxaca cheese':{
+        'flag': 'assets/images/flags/mexico.png',
+        'photo':'assets/images/cheeses/oaxaca.png'
+    },
+    'Bundz':{
+        'flag': 'assets/images/flags/poland.png',
+        'photo':'assets/images/cheeses/bundz.png'
+    },
+    'Canastra':{
+        'flag': 'assets/images/flags/brazil.png',
+        'photo':'assets/images/cheeses/canastra.png'
+    },
+    'Old Amsterdam':{
+        'flag': 'assets/images/flags/netherlands.png',
+        'photo':'assets/images/cheeses/old_amsterdam.png'
+    },
+    'Sirene':{
+        'flag': 'assets/images/flags/bulgarie.png',
+        'photo':'assets/images/cheeses/sirene.png'
+    },
+    'Graviera Naxou':{
+        'flag': 'assets/images/flags/greece.png',
+        'photo':'assets/images/cheeses/graviera.png'
+    },
+    'Sulguni':{
+        'flag': 'assets/images/flags/georgia.png',
+        'photo':'assets/images/cheeses/sulguni.png'
+    },
+}
 
 # db logic code
 def get_db():
@@ -30,8 +73,7 @@ def init_db():
     with app.app_context():
         with current_app.open_resource("cheesse.sql") as f:
             print("ok")
-            db.executescript(f.read().decode("utf8"))
-            
+            db.executescript(f.read().decode("utf8"))           
 
 @app.route("/")
 @app.route("/home")
@@ -41,7 +83,7 @@ def home():
 
 @app.route("/rank")
 def rank():
-    return render_template("rank.html")
+    return render_template("rank.html",cheese_country=cheese_country )
 
 
 @app.route("/login", methods=["GET", "POST"])

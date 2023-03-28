@@ -1,5 +1,22 @@
 {% extends "home.html" %}
 
 {% block container %}
-<div class="sub-menu">HAHAHAHAHAHAHA</div>
+    <div class="sub-menu">
+        {% for name_cheese, cheese in cheese_country.items() %}
+            <div class="list-item">
+                <div class="row div-hover">
+                    <div>
+                        <img alt="Rank"
+                             src="{{ url_for('static', filename=cheese['flag']) }}"/>
+                    </div>
+                    <div class="display-align-center">
+                        {{ name_cheese }}
+                    </div>
+                    <img class="margin-left-auto img-cheese" alt="Rank"
+                         src="{{ url_for('static', filename=cheese['photo']) }}"/>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
 {% endblock %}
+
