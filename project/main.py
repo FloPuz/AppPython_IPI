@@ -100,7 +100,6 @@ def connection():
             flash('Please check your login details and try again.')
             return redirect(url_for("connection"))
 
-        # TODO -- Check in db and add logic
         session['login'] = login
         return redirect(url_for("home"))
 
@@ -108,7 +107,6 @@ def connection():
 @app.route("/logout")
 def log_out():
     session['login'] = None
-    # TODO -- remove connection from instance
     return redirect(url_for("connection"))
 
 
@@ -170,18 +168,3 @@ def delete_user(user):
     except db.IntegrityError:
         error = f"User {user['login']} doesn't exist."
         return error
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
