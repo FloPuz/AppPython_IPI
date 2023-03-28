@@ -1,6 +1,6 @@
 import sqlite3
 
-from flask import Flask, flash
+from flask import Flask, flash , session
 from flask import render_template, redirect, url_for
 from flask import request, current_app, g
 from werkzeug.security import generate_password_hash, check_password_hash
@@ -89,6 +89,8 @@ def rank():
 @app.route("/login", methods=["GET", "POST"])
 def connection():
     if request.method == "GET":
+        if session['login']:
+            return render_template("home.html")
         return render_template("login.html")
     else:
         login = request.form.get('login')
@@ -99,13 +101,15 @@ def connection():
             return redirect(url_for("connection"))
 
         # TODO -- Check in db and add logic
+        session['login'] = login
         return redirect(url_for("home"))
 
 
 @app.route("/logout")
 def log_out():
+    session['login'] = None
     # TODO -- remove connection from instance
-    return  redirect(url_for("connection"))
+    return redirect(url_for("connection"))
 
 
 @app.route("/signup", methods=["GET", "POST"])
