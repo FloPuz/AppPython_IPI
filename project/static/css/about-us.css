@@ -16,6 +16,15 @@ h1{
 }
 
 .dmitrii{
+    padding: 11px 0 0px 0px;
     width: 170px;
     height: 184px;
+}
+
+.dmitrii-text{
+    margin-top: 2.75rem;
+}
+
+p{
+    font-weight: bold;
 }
