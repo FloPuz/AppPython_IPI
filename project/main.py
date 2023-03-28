@@ -172,5 +172,5 @@ def delete_user(user):
 #Select the most loved cheese
 def get_loved_cheese():
     db = get_db()
-    cheeses = db.execute('SELECT nom, count() as rank FROM cheese JOIN user ON cheese.idCheese = user.idCheese ORDER BY rank').fetchone()
+    cheeses = db.execute('SELECT cheese.*, count(user.idUser) as vote FROM cheese INNER JOIN user ON cheese.idCheese = user.idCheese GROUP BY user.idCheese').fetchone()
     return cheeses
