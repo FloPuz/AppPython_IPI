@@ -1,5 +1,6 @@
 import sqlite3
 
+from flask import Flask
 from flask import render_template, make_response, abort, redirect, url_for
 from flask import session, request, current_app, g
 from markupsafe import escape
