@@ -66,6 +66,9 @@ def close_db(e=None):
     if db is not None:
         db.close()
 
+# Init the DB __ But inits each time the app run 
+#One could improove the app by looking for the 
+# db in the path and dont recreate if it already exists
 def init_db():
     with app.app_context():
         db = get_db()
@@ -188,3 +191,5 @@ def get_user_cheese(user):
     except db.IntegrityError:
         error = f"User {user['login']} doesn't exist."
         return error
+     
+init_db()
