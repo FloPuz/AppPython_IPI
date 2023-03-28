@@ -97,9 +97,9 @@ def connection():
 
 
 @app.route("/logout")
-def logout():
+def log_out():
     # TODO -- remove connection from instance
-    return url_for("home")
+    return  redirect(url_for("connection"))
 
 
 @app.route("/signup", methods=["GET", "POST"])
