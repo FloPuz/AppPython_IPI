@@ -1,5 +1,5 @@
 .margin-width {
-    margin: 1rem auto auto;
+    margin: -2rem auto auto;
 }
 
 .avatar {
@@ -8,3 +8,14 @@
     height: 220px;
 }
 
+h1{
+    display: flex;
+    margin: auto auto;
+    flex-basis: 50%;
+    align-items: end;
+}
+
+.dmitrii{
+    width: 170px;
+    height: 184px;
+}
