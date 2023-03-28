@@ -18,5 +18,5 @@ CREATE TABLE cheese(
    nom NVARCHAR(255) NOT NULL
 );
 
-INSERT INTO cheese(idCheese,nom) VALUES (1,'camembert');
 INSERT INTO user(idUSer,login,password,prenom) VALUES (1,'floflo', '123', 'Flow');
+INSERT INTO cheese(idCheese,nom) VALUES (1,'camembert');
