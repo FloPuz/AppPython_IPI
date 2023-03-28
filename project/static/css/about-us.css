@@ -1,0 +1,10 @@
+.margin-width {
+    margin: 1rem auto auto;
+}
+
+.avatar {
+    margin: 0 auto;
+    width: 220px;
+    height: 220px;
+}
+

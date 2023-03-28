@@ -11,7 +11,7 @@
 <body>
 <div class="side-menu">
     <img class="cheese-img" alt="Cheese" src="{{ url_for('static', filename='assets/images/cheese.png') }}"/>
-    <div class="column flex">
+    <div class="column flex space-evenly">
         <a class="button_link" href="{{ url_for('rank') }}">
             <div class="circle">
                 <img class="circle-img" alt="Rank" src="{{ url_for('static', filename='assets/images/rank.png') }}"/>
@@ -19,7 +19,7 @@
             <label>Classement</label>
         </a>
 
-        <a class="button_link">
+        <a class="button_link" href="{{ url_for('about_us') }}">
             <div class="circle">
                 <img class="circle-img" alt="Rank"
                      src="{{ url_for('static', filename='assets/images/about_us.png') }}"/>
