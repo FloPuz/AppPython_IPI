@@ -153,6 +153,18 @@ def delete_user(user):
     except db.IntegrityError:
         error = f"User {user['login']} doesn't exist."
         return error
+    
+#Get all cheese of a specific user and order them by ranking
+def get_cheese_by_user(user):
+    db= get_db()
+    try:
+        result = db.execute("SELECT user.prenom ,cheese.nom , userCheese.rank from cheese INNER JOIN user INNER JOIN userCheese ON userCheese.idUser = ? ORDER BY userCheese.rank", (user['idUser'] ))
+        cheeses = result.fetchall()
+        return cheeses
+        
+    except db.IntegrityError:
+        error = f"User {user['login']} doesn't exist."
+        return error
 
 
 
