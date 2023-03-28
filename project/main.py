@@ -168,3 +168,9 @@ def delete_user(user):
     except db.IntegrityError:
         error = f"User {user['login']} doesn't exist."
         return error
+
+#Select the most loved cheese
+def get_loved_cheese():
+    db= get_db()
+    cheeses = db.execute('SELECT * FROM cheese JOIN user ON idCheese = user.idCheese ORDER BY count(idUser)').fetchone()
+    return cheeses
