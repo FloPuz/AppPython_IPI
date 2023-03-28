@@ -1,0 +1,30 @@
+.margin-width {
+    margin: -2rem auto auto;
+}
+
+.avatar {
+    margin: 0 auto;
+    width: 220px;
+    height: 220px;
+}
+
+h1{
+    display: flex;
+    margin: auto auto;
+    flex-basis: 50%;
+    align-items: end;
+}
+
+.dmitrii{
+    padding: 11px 0 0px 0px;
+    width: 170px;
+    height: 184px;
+}
+
+.dmitrii-text{
+    margin-top: 2.75rem;
+}
+
+p{
+    font-weight: bold;
+}

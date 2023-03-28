@@ -1,0 +1,25 @@
+{% extends "home.html" %}
+
+{% block container %}
+    <div class="sub-menu">
+    <h1>Notre équipe</h1>
+        <div class="row-classic margin-width">
+            <div class="column">
+                <img class="dmitrii" alt="Rank" src="{{ url_for('static', filename='assets/images/dmitrii.png') }}"/>
+                <p class="dmitrii-text">Dmitrii Crivoi</p>
+            </div>
+            <div class="column">
+                <img class="avatar" alt="Rank" src="{{ url_for('static', filename='assets/images/vladimir.png') }}"/>
+                <p>Vladimir Chantich</p>
+            </div>
+            <div class="column">
+                <img class="avatar" alt="Rank" src="{{ url_for('static', filename='assets/images/florent.png') }}"/>
+                <p>Florent Puzenat</p>
+            </div>
+            <div class="column">
+                <img class="avatar" alt="Rank" src="{{ url_for('static', filename='assets/images/felix.png') }}"/>
+                <p>Félix Laterrot</p>
+            </div>
+        </div>
+    </div>
+{% endblock %}

@@ -88,6 +88,10 @@ def home():
 def rank():
     return render_template("rank.html",cheese_country=cheese_country )
 
+@app.route("/about-us")
+def about_us():
+    return render_template("about-us.html")
+
 
 @app.route("/login", methods=["GET", "POST"])
 def connection():

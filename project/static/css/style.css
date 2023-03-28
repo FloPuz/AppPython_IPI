@@ -1,8 +1,17 @@
 @import "sub-menu.css";
+@import "about-us.css";
 
 .column {
     display: flex;
     flex-direction: column;
+    align-items: center;
+}
+.row-classic{
+    display: flex;
+    flex-direction: row;
+    gap: 1rem;
+    height: 100%;
+    align-items: center;
 }
 
 .row {
@@ -42,4 +51,7 @@
     margin-left: auto;
 }
 
+.space-evenly{
+    justify-content: space-evenly;
+}
 
