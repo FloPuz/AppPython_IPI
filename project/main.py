@@ -1,35 +1,51 @@
 from flask import Flask
-from flask import render_template, make_response, abort, redirect, url_for
-from flask import session, request
-from markupsafe import escape
-from werkzeug.utils import secure_filename
+from flask import render_template, redirect, url_for
+from flask import request
+
 
 app = Flask(__name__)
 
 cheese_country = {
-    'Parmigiano Regiano':'assets/images/flags/italy.png',
-    'Burrata':'assets/images/flags/italy.png',
-    'Grana Padano':'assets/images/flags/italy.png',
-    'Oaxaca cheese':'assets/images/flags/mexico.png',
-    'Bundz':'assets/images/flags/poland.png',
-    'Canastra':'assets/images/flags/brazil.png',
-    'Old Amsterdam':'assets/images/flags/netherlands.png',
-    'Sirene':'assets/images/flags/bulgarie.png',
-    'Graviera Naxou':'assets/images/flags/greece.png',
-    'Sulguni':'assets/images/flags/georgia.png',
-}
-
-cheese_photo = {
-    'Parmigiano Regiano':'assets/images/cheeses/parmigiano.png',
-    'Burrata':'assets/images/cheeses/burratta.png',
-    'Grana Padano':'assets/images/cheeses/padano.png',
-    'Oaxaca cheese':'assets/images/cheeses/oaxaca.png',
-    'Bundz':'assets/images/cheeses/bundz.png',
-    'Canastra':'assets/images/cheeses/canastra.png',
-    'Old Amsterdam':'assets/images/cheeses/old_amsterdam.png',
-    'Sirene':'assets/images/cheeses/sirene.png',
-    'Graviera Naxou':'assets/images/cheeses/graviera.png',
-    'Sulguni':'assets/images/cheeses/sulguni.png',
+    'Parmigiano Regiano':{
+        'flag': 'assets/images/flags/italy.png',
+        'photo':'assets/images/cheeses/parmigiano.png',
+    },
+    'Burrata':{
+        'flag': 'assets/images/flags/italy.png',
+        'photo':'assets/images/cheeses/burratta.png',
+    },
+    'Grana Padano':{
+        'flag': 'assets/images/flags/italy.png',
+        'photo':'assets/images/cheeses/padano.png'
+    },
+    'Oaxaca cheese':{
+        'flag': 'assets/images/flags/mexico.png',
+        'photo':'assets/images/cheeses/oaxaca.png'
+    },
+    'Bundz':{
+        'flag': 'assets/images/flags/poland.png',
+        'photo':'assets/images/cheeses/bundz.png'
+    },
+    'Canastra':{
+        'flag': 'assets/images/flags/brazil.png',
+        'photo':'assets/images/cheeses/canastra.png'
+    },
+    'Old Amsterdam':{
+        'flag': 'assets/images/flags/netherlands.png',
+        'photo':'assets/images/cheeses/old_amsterdam.png'
+    },
+    'Sirene':{
+        'flag': 'assets/images/flags/bulgarie.png',
+        'photo':'assets/images/cheeses/sirene.png'
+    },
+    'Graviera Naxou':{
+        'flag': 'assets/images/flags/greece.png',
+        'photo':'assets/images/cheeses/graviera.png'
+    },
+    'Sulguni':{
+        'flag': 'assets/images/flags/georgia.png',
+        'photo':'assets/images/cheeses/sulguni.png'
+    },
 }
 
 @app.route("/")
@@ -40,12 +56,8 @@ def home():
 
 @app.route("/rank")
 def rank():
+    return render_template("rank.html",cheese_country=cheese_country )
 
-    return render_template("rank.html",cheese_country=cheese_country , cheese_photo=cheese_photo)
-
-@app.route("/rank")
-def fromage():
-    return render_template("fromage.html")
 
 @app.route("/login", methods=["GET", "POST"])
 def connection():
