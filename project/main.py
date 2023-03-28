@@ -183,7 +183,7 @@ def change_user_cheese(user):
 def get_user_cheese(user):
     db = get_db()
     try:
-        cheese = db.execute("SELECT cheese.nom FROM cheese LEFT JOIN user ON user.idUser =?", (user['idUser']))
+        cheese = db.execute("SELECT cheese.nom FROM cheese LEFT JOIN user ON user.idUser =?", (user['idUser'])).fetchone()
         return cheese_country[cheese]
     except db.IntegrityError:
         error = f"User {user['login']} doesn't exist."
