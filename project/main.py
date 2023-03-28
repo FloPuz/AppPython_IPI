@@ -66,6 +66,9 @@ def close_db(e=None):
     if db is not None:
         db.close()
 
+# Init the DB __ But inits each time the app run 
+#One could improove the app by looking for the 
+# db in the path and dont recreate if it already exists
 def init_db():
     with app.app_context():
         db = get_db()
@@ -168,3 +171,25 @@ def delete_user(user):
     except db.IntegrityError:
         error = f"User {user['login']} doesn't exist."
         return error
+
+#Changes the cheese totem from a user even if its outragious 
+def change_user_cheese(user):
+    db = get_db()
+    try:
+        db.execute("UPDATE FROM user WHERE idUser =? SET idCheese = ?", (user['idUser']), (user['idCheese']))
+        db.commit()
+    except db.IntegrityError:
+        error = f"User {user['login']} doesn't exist."
+        return error
+
+#Get the user 's favorite, hopefully smelly, cheese 
+def get_user_cheese(user):
+    db = get_db()
+    try:
+        cheese = db.execute("SELECT cheese.nom FROM cheese LEFT JOIN user ON user.idUser =?", (user['idUser'])).fetchone()
+        return cheese_country[cheese]
+    except db.IntegrityError:
+        error = f"User {user['login']} doesn't exist."
+        return error
+     
+init_db()
