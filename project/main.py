@@ -129,6 +129,7 @@ def sign_up():
 
         if user:
             flash('Email address already exists')
+            session['login'] = None
             return redirect(url_for('connection'))
 
         insert_user(login , password , name)
