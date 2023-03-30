@@ -84,15 +84,21 @@ def login_page():
 
 @app.route("/home")
 def home():
+    if session['login'] == None:
+        return redirect(url_for('login_page'))
     return render_template("home.html")
 
 @app.route("/rank")
 def rank():
+    if session['login'] == None:
+        return redirect(url_for('login_page'))
     cheeses = get_all_cheeses()
     return render_template("rank.html",cheeses_list=cheeses)
 
 @app.route("/about-us")
 def about_us():
+    if session['login'] == None:
+        return redirect(url_for('login_page'))
     return render_template("about-us.html")
 
 
@@ -186,7 +192,7 @@ def delete_user(user):
 def change_user_cheese(login, idUser, idCheese):
     db = get_db()
     try:
-        db.execute("UPDATE FROM user SET idUser =? WHERE idCheese = ?", idUser, idCheese)
+        db.execute("UPDATE user SET idUser =? WHERE idCheese = ?", (idUser, idCheese), )
         db.commit()
     except db.IntegrityError:
         error = f"User {login} doesn't exist."
