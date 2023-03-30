@@ -177,6 +177,7 @@ def delete_user(user):
         error = f"User {user['login']} doesn't exist."
         return error
 
+
 #Changes the cheese totem from a user even if its outragious 
 def change_user_cheese(user):
     db = get_db()
@@ -197,4 +198,11 @@ def get_user_cheese(user):
         error = f"User {user['login']} doesn't exist."
         return error
      
+
+#Select the most loved cheese
+def get_loved_cheese():
+    db= get_db()
+    cheeses = db.execute('SELECT * FROM cheese JOIN user ON idCheese = user.idCheese ORDER BY count(idUser)').fetchone()
+    return cheeses
+
 init_db()
