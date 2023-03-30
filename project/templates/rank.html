@@ -2,18 +2,30 @@
 
 {% block container %}
     <div class="sub-menu">
-        {% for name_cheese, cheese in cheese_country.items() %}
+        <div>
+            <p>
+                Cliquez sur la photo de votre fromage favoris
+            </p>
+        </div>
+        {% for cheese in cheeses_list %}
             <div class="list-item">
                 <div class="row div-hover">
                     <div>
                         <img alt="Rank"
-                             src="{{ url_for('static', filename=cheese['flag']) }}"/>
+                             src="{{ url_for('static', filename=cheese['urlFlag']) }}"/>
                     </div>
                     <div class="display-align-center">
-                        {{ name_cheese }}
+                        {{ cheese['nom'] }}
                     </div>
-                    <img class="margin-left-auto img-cheese" alt="Rank"
-                         src="{{ url_for('static', filename=cheese['photo']) }}"/>
+                    <form method="post" class="form-example">
+                        <input type="text" id="idCheese" name="idCheese" value="{{cheese['idCheese']}}" hidden>
+                        <button type="submit">
+                            <img class="margin-left-auto img-cheese" alt="Rank"
+                                 src="{{ url_for('static', filename=cheese['urlImg']) }}"/>
+                        </button>
+                    </form>
+
+
                 </div>
             </div>
         {% endfor %}

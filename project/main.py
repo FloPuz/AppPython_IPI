@@ -86,7 +86,8 @@ def home():
 
 @app.route("/rank")
 def rank():
-    return render_template("rank.html",cheese_country=cheese_country )
+    cheeses = get_all_cheeses()
+    return render_template("rank.html",cheeses_list=cheeses)
 
 @app.route("/about-us")
 def about_us():
@@ -204,5 +205,14 @@ def get_loved_cheese():
     db = get_db()
     cheeses = db.execute('SELECT *, count(user.idUser) as vote FROM cheese INNER JOIN user ON cheese.idCheese = user.idCheese GROUP BY user.idCheese').fetchone()
     return cheeses
+
+#Get cheeses from bdd
+def get_all_cheeses():
+    db = get_db()
+    cheeses = db .execute('SELECT * FROM cheese').fetchall()
+    return cheeses
+
+
+
 
 init_db()
