@@ -177,6 +177,7 @@ def delete_user(user):
         error = f"User {user['login']} doesn't exist."
         return error
 
+<<<<<<< HEAD
 
 #Changes the cheese totem from a user even if its outragious 
 def change_user_cheese(user):
