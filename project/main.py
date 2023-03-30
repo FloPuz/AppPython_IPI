@@ -112,7 +112,7 @@ def connection():
 
         session['login'] = login
         session['idUser'] = user['idUser']
-        return redirect(url_for("home"))
+        return redirect(url_for("rank"))
 
 
 @app.route("/logout")
@@ -186,7 +186,7 @@ def delete_user(user):
 def change_user_cheese(login, idUser, idCheese):
     db = get_db()
     try:
-        db.execute("UPDATE FROM user WHERE idUser =? SET idCheese = ?", idUser, idCheese)
+        db.execute("UPDATE FROM user SET idUser =? WHERE idCheese = ?", idUser, idCheese)
         db.commit()
     except db.IntegrityError:
         error = f"User {login} doesn't exist."
