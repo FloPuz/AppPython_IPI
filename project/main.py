@@ -146,15 +146,6 @@ def modify_cheese():
     idCheese = request.form.get('idCheese')
     change_user_cheese(login, idUser, idCheese)
     return redirect(url_for('rank'))
-    
-
-# @app.errorhandler(401)
-# def access_denied(error):
-#     return render_template('access_denied.html'), 401
-
-# @app.errorhandler(404)
-# def access_denied(error):
-#     return render_template('page_not_found.html'), 404
 
 #select all user as a 2D list (ie: user[0]['login'] / user[1]['login'])
 def get_all_users():
