@@ -199,7 +199,7 @@ def get_user_cheese(user):
         return error
      
 
-#Select the most loved cheeses
+#Select the most loved cheeses vote
 def get_loved_cheese():
     db = get_db()
     cheeses = db.execute('SELECT nom, count(user.idUser) as vote FROM cheese INNER JOIN user ON cheese.idCheese = user.idCheese GROUP BY user.idCheese').fetchone()
