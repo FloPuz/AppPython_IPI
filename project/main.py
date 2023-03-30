@@ -78,6 +78,8 @@ def init_db():
 
 @app.route("/")
 def login_page():
+    init_db()   
+    session['login'] = None
     return render_template("login.html")
 
 @app.route("/home")
@@ -109,7 +111,8 @@ def connection():
             return redirect(url_for("connection"))
 
         session['login'] = login
-        return redirect(url_for("home"))
+        session['idUser'] = user['idUser']
+        return redirect(url_for("rank"))
 
 
 @app.route("/logout")
@@ -135,14 +138,14 @@ def sign_up():
 
         insert_user(login , password , name)
         return redirect(url_for('connection'))
-
-# @app.errorhandler(401)
-# def access_denied(error):
-#     return render_template('access_denied.html'), 401
-
-# @app.errorhandler(404)
-# def access_denied(error):
-#     return render_template('page_not_found.html'), 404
+    
+@app.post("/modify_cheese")
+def modify_cheese():
+    login = session['login']
+    idUser = session['idUser']
+    idCheese = request.form.get('idCheese')
+    change_user_cheese(login, idUser, idCheese)
+    return redirect(url_for('rank'))
 
 #select all user as a 2D list (ie: user[0]['login'] / user[1]['login'])
 def get_all_users():
@@ -180,13 +183,13 @@ def delete_user(user):
 
 
 #Changes the cheese totem from a user even if its outragious 
-def change_user_cheese(user):
+def change_user_cheese(login, idUser, idCheese):
     db = get_db()
     try:
-        db.execute("UPDATE FROM user WHERE idUser =? SET idCheese = ?", (user['idUser']), (user['idCheese']))
+        db.execute("UPDATE FROM user SET idUser =? WHERE idCheese = ?", idUser, idCheese)
         db.commit()
     except db.IntegrityError:
-        error = f"User {user['login']} doesn't exist."
+        error = f"User {login} doesn't exist."
         return error
 
 #Get the user 's favorite, hopefully smelly, cheese 
@@ -211,8 +214,3 @@ def get_all_cheeses():
     db = get_db()
     cheeses = db .execute('SELECT * FROM cheese').fetchall()
     return cheeses
-
-
-
-
-init_db()

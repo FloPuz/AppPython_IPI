@@ -17,15 +17,13 @@
                     <div class="display-align-center">
                         {{ cheese['nom'] }}
                     </div>
-                    <form method="post" class="form-example">
+                    <form method="POST" action="/modify_cheese">
                         <input type="text" id="idCheese" name="idCheese" value="{{cheese['idCheese']}}" hidden>
                         <button type="submit">
                             <img class="margin-left-auto img-cheese" alt="Rank"
                                  src="{{ url_for('static', filename=cheese['urlImg']) }}"/>
                         </button>
                     </form>
-
-
                 </div>
             </div>
         {% endfor %}
