@@ -52,6 +52,7 @@ cheese_country = {
 }
 
 # db logic code
+"""accessing data.db thank to g object and gets all tables"""
 def get_db():
     if "db" not in g:
         g.db = sqlite3.connect("data.db")
@@ -59,7 +60,7 @@ def get_db():
 
     return g.db
 
-
+"""Close data base"""
 def close_db(e=None):
     db = g.pop("db", None)
 
@@ -67,7 +68,7 @@ def close_db(e=None):
         db.close()
 
 # Init the DB __ But inits each time the app run 
-#One could improove the app by looking for the 
+#One could improve the app by looking for the
 # db in the path and dont recreate if it already exists
 def init_db():
     with app.app_context():
@@ -76,18 +77,21 @@ def init_db():
         with current_app.open_resource("cheesse.sql") as f:
             db.executescript(f.read().decode("utf8"))
 
+#access login page and check if we are already signed in with session object
 @app.route("/")
 def login_page():
     init_db()   
     session['login'] = None
     return render_template("login.html")
 
+#render home.html template and if user is none redirects to login page
 @app.route("/home")
 def home():
     if session['login'] == None:
         return redirect(url_for('login_page'))
     return render_template("home.html")
 
+#if user none going to login page else renders rank page with favorite cheeses
 @app.route("/rank")
 def rank():
     if session['login'] == None:
@@ -95,13 +99,22 @@ def rank():
     cheeses = get_loved_cheese()
     return render_template("rank.html",cheeses_list=cheeses)
 
+#same logic with no user else renders about-us template
 @app.route("/about-us")
 def about_us():
     if session['login'] == None:
         return redirect(url_for('login_page'))
     return render_template("about-us.html")
 
-
+"""
+    The method have two parts:
+    ------
+    if the request is GET checks if user is authenticated else redirecting to login page
+    ------
+    ------
+    taking introduced login and password and checks if user exist and the password is correct.
+    Saving user in cookies using session object
+"""
 @app.route("/login", methods=["GET", "POST"])
 def connection():
     if request.method == "GET":
@@ -120,13 +133,19 @@ def connection():
         session['idUser'] = user['idUser']
         return redirect(url_for("rank"))
 
-
+"""
+    Sets user to none and redirects to login page
+"""
 @app.route("/logout")
 def log_out():
     session['login'] = None
     return redirect(url_for("connection"))
 
-
+"""
+    if  method is GET renders to signup page
+    else gathers information and checks is user exist. If not registering new user
+    and redirects to login page
+"""
 @app.route("/signup", methods=["GET", "POST"])
 def sign_up():
     if request.method == "GET":
@@ -144,7 +163,10 @@ def sign_up():
 
         insert_user(login , password , name)
         return redirect(url_for('connection'))
-    
+
+"""
+    Modifies user's favorite cheese
+"""
 @app.post("/modify_cheese")
 def modify_cheese():
     login = session['login']
