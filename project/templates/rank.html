@@ -15,6 +15,9 @@
                              src="{{ url_for('static', filename=cheese['urlFlag']) }}"/>
                     </div>
                     <div class="display-align-center">
+                        {{ cheese['vote'] }}
+                    </div>
+                    <div class="display-align-center">
                         {{ cheese['nom'] }}
                     </div>
                     <form method="POST" action="/modify_cheese">
