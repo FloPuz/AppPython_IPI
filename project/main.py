@@ -52,16 +52,16 @@ cheese_country = {
 }
 
 # db logic code
-"""accessing data.db thank to g object and gets all tables"""
 def get_db():
+    """accessing data.db thank to g object and gets all tables"""
     if "db" not in g:
         g.db = sqlite3.connect("data.db")
         g.db.row_factory = sqlite3.Row
 
     return g.db
 
-"""Close data base"""
 def close_db(e=None):
+    """Close data base"""
     db = g.pop("db", None)
 
     if db is not None:
@@ -71,6 +71,7 @@ def close_db(e=None):
 #One could improve the app by looking for the
 # db in the path and dont recreate if it already exists
 def init_db():
+    """Init the Db of the application on ly call once"""
     with app.app_context():
         db = get_db()
     with app.app_context():
@@ -80,6 +81,7 @@ def init_db():
 #access login page and check if we are already signed in with session object
 @app.route("/")
 def login_page():
+    """This route is there to redirect you to the login screen on the first connection"""
     init_db()   
     session['login'] = None
     return render_template("login.html")
@@ -87,6 +89,7 @@ def login_page():
 #render home.html template and if user is none redirects to login page
 @app.route("/home")
 def home():
+    """This is the home, you have acces to the menus there and can navigate"""
     if session['login'] == None:
         return redirect(url_for('login_page'))
     return render_template("home.html")
@@ -94,6 +97,7 @@ def home():
 #if user none going to login page else renders rank page with favorite cheeses
 @app.route("/rank")
 def rank():
+    """A route to load the ranking of the different cheese and show the corresponding  temp"""
     if session['login'] == None:
         return redirect(url_for('login_page'))
     cheeses = get_loved_cheese()
@@ -102,21 +106,21 @@ def rank():
 #same logic with no user else renders about-us template
 @app.route("/about-us")
 def about_us():
+    """Load the about us screen"""
     if session['login'] == None:
         return redirect(url_for('login_page'))
     return render_template("about-us.html")
 
-"""
-    The method have two parts:
+
+@app.route("/login", methods=["GET", "POST"])
+def connection():
+    """The method have two parts:
     ------
     if the request is GET checks if user is authenticated else redirecting to login page
     ------
     ------
     taking introduced login and password and checks if user exist and the password is correct.
-    Saving user in cookies using session object
-"""
-@app.route("/login", methods=["GET", "POST"])
-def connection():
+    Saving user in cookies using session object """
     if request.method == "GET":
         if session['login']:
             return render_template("home.html")
@@ -133,21 +137,22 @@ def connection():
         session['idUser'] = user['idUser']
         return redirect(url_for("rank"))
 
-"""
-    Sets user to none and redirects to login page
-"""
+
 @app.route("/logout")
 def log_out():
+    """
+        Sets user to none and redirects to login page
+    """
     session['login'] = None
     return redirect(url_for("connection"))
 
-"""
+@app.route("/signup", methods=["GET", "POST"])
+def sign_up():
+    """
     if  method is GET renders to signup page
     else gathers information and checks is user exist. If not registering new user
     and redirects to login page
-"""
-@app.route("/signup", methods=["GET", "POST"])
-def sign_up():
+    """
     if request.method == "GET":
         return render_template("signup.html")
     else:
@@ -164,11 +169,11 @@ def sign_up():
         insert_user(login , password , name)
         return redirect(url_for('connection'))
 
-"""
-    Modifies user's favorite cheese
-"""
 @app.post("/modify_cheese")
 def modify_cheese():
+    """
+    Modifies user's favorite cheese
+    """
     login = session['login']
     idUser = session['idUser']
     idCheese = request.form.get('idCheese')
@@ -177,22 +182,25 @@ def modify_cheese():
 
 #select all user as a 2D list (ie: user[0]['login'] / user[1]['login'])
 def get_all_users():
+    """Get all user referenced in the db"""
     db = get_db()
     users = db.execute('SELECT * FROM user').fetchall()
     return users
 #select all database user as user(ie: user['login']/ user['password'])
 def get_user_by_username(login):
+    """Ge a specific user thanks to his name in the db"""
     db= get_db()
     user = db.execute('SELECT * FROM user WHERE login = ?',(login,)).fetchone()
     return user
 
 #insert user with user['login']/user['paswword']/user['prenom']
-def insert_user(login, password, prenom):
+def insert_user(login, password, firstname):
+    """Insert a new user in the db, with his name, lastname and password all set up"""
     db= get_db()
     try:
         db.execute(
             "INSERT INTO user (login, password, prenom) VALUES (?, ?, ?)",
-            (login, generate_password_hash(password), prenom),
+            (login, generate_password_hash(password), firstname),
         )
         db.commit()
     except db.IntegrityError:
@@ -201,6 +209,7 @@ def insert_user(login, password, prenom):
 
 #Delete user from DataBase
 def delete_user(user):
+    """Dele a user in the db using a dic that reprensent him"""
     db= get_db()
     try:
         db.execute("DELETE FROM user WHERE idUser = ?", (user['idUser'] ))
@@ -212,6 +221,7 @@ def delete_user(user):
 
 #Changes the cheese totem from a user even if its outragious 
 def change_user_cheese(login, idUser, idCheese):
+    """Change the favorite cheese of a user in the db"""
     db = get_db()
     try:
         db.execute("UPDATE user SET idCheese = ? WHERE idUser = ?", (idCheese, idUser), )
@@ -222,6 +232,7 @@ def change_user_cheese(login, idUser, idCheese):
 
 #Get the user 's favorite, hopefully smelly, cheese 
 def get_user_cheese(user):
+    """Get the favorite cheese of a specific user"""
     db = get_db()
     try:
         cheese = db.execute("SELECT cheese.nom FROM cheese LEFT JOIN user ON user.idUser =?", (user['idUser'])).fetchone()
@@ -233,13 +244,7 @@ def get_user_cheese(user):
 
 #Select the most loved cheeses vote
 def get_loved_cheese():
+    """Get all the loved cheese  [cheese that have been selected by a user]"""
     db = get_db()
     cheeses = db.execute('SELECT *, count(user.idUser) as vote FROM cheese LEFT JOIN user WHERE cheese.idCheese = user.idCheese GROUP BY cheese.idCheese ORDER BY vote DESC').fetchall()
-    return cheeses
-
-
-#Get cheeses from bdd
-def get_all_cheeses():
-    db = get_db()
-    cheeses = db .execute('SELECT * FROM cheese').fetchall()
     return cheeses
