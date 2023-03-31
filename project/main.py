@@ -192,7 +192,7 @@ def delete_user(user):
 def change_user_cheese(login, idUser, idCheese):
     db = get_db()
     try:
-        db.execute("UPDATE user SET idUser =? WHERE idCheese = ?", (idUser, idCheese), )
+        db.execute("UPDATE user SET idCheese = ? WHERE idUser = ?", (idCheese, idUser), )
         db.commit()
     except db.IntegrityError:
         error = f"User {login} doesn't exist."
@@ -212,7 +212,7 @@ def get_user_cheese(user):
 #Select the most loved cheeses vote
 def get_loved_cheese():
     db = get_db()
-    cheeses = db.execute('SELECT *, count(user.idUser) as vote FROM cheese LEFT JOIN user WHERE cheese.idCheese = user.idCheese GROUP BY cheese.idCheese').fetchall()
+    cheeses = db.execute('SELECT *, count(user.idUser) as vote FROM cheese LEFT JOIN user WHERE cheese.idCheese = user.idCheese GROUP BY cheese.idCheese ORDER BY vote DESC').fetchall()
     return cheeses
 
 

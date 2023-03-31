@@ -33,6 +33,15 @@ INSERT INTO cheese(idCheese,nom,urlImg,urlFlag) VALUES (10,'Sulguni','assets/ima
 
 
 INSERT INTO user(login,password,prenom,idCheese) VALUES ('floflo', '123', 'Flow',1);
-INSERT INTO user(login,password,prenom,idCheese) VALUES ('az', 'az', 'Felix',3);
-INSERT INTO user(login,password,prenom,idCheese) VALUES ('aza', 'aza', 'Felixa',10);
+INSERT INTO user(login,password,prenom,idCheese) VALUES ('flow', '541', 'Flo',1);
+INSERT INTO user(login,password,prenom,idCheese) VALUES ('asz', 'azfds', 'Felix',2);
+INSERT INTO user(login,password,prenom,idCheese) VALUES ('aserz', 'azfdeas', 'Victor',2);
+INSERT INTO user(login,password,prenom,idCheese) VALUES ('azr', 'azqdfv', 'Cri',3);
+INSERT INTO user(login,password,prenom,idCheese) VALUES ('azc', 'azqdfv', 'Stophe',4);
+INSERT INTO user(login,password,prenom,idCheese) VALUES ('azt', 'azc', 'Elmout',5);
+INSERT INTO user(login,password,prenom,idCheese) VALUES ('azg', 'azd', 'Ard',6);
+INSERT INTO user(login,password,prenom,idCheese) VALUES ('azh', 'azds', 'Elme',7);
+INSERT INTO user(login,password,prenom,idCheese) VALUES ('azc', 'azsv', 'Nerve',8);
+INSERT INTO user(login,password,prenom,idCheese) VALUES ('azp', 'azse', 'Jean',9);
+INSERT INTO user(login,password,prenom,idCheese) VALUES ('azai', 'azafv', 'Bon',10);
 
