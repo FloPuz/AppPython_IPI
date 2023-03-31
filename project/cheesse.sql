@@ -33,4 +33,6 @@ INSERT INTO cheese(idCheese,nom,urlImg,urlFlag) VALUES (10,'Sulguni','assets/ima
 
 
 INSERT INTO user(login,password,prenom,idCheese) VALUES ('floflo', '123', 'Flow',1);
+INSERT INTO user(login,password,prenom,idCheese) VALUES ('az', 'az', 'Felix',3);
+INSERT INTO user(login,password,prenom,idCheese) VALUES ('aza', 'aza', 'Felixa',10);
 

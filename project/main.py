@@ -92,7 +92,7 @@ def home():
 def rank():
     if session['login'] == None:
         return redirect(url_for('login_page'))
-    cheeses = get_all_cheeses()
+    cheeses = get_loved_cheese()
     return render_template("rank.html",cheeses_list=cheeses)
 
 @app.route("/about-us")
@@ -212,8 +212,9 @@ def get_user_cheese(user):
 #Select the most loved cheeses vote
 def get_loved_cheese():
     db = get_db()
-    cheeses = db.execute('SELECT *, count(user.idUser) as vote FROM cheese INNER JOIN user ON cheese.idCheese = user.idCheese GROUP BY user.idCheese').fetchone()
+    cheeses = db.execute('SELECT *, count(user.idUser) as vote FROM cheese LEFT JOIN user WHERE cheese.idCheese = user.idCheese GROUP BY cheese.idCheese').fetchall()
     return cheeses
+
 
 #Get cheeses from bdd
 def get_all_cheeses():
